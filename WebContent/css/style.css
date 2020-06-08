@@ -148,6 +148,8 @@ select {
 
 h1 a {
     color: #eeeeee;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 table#report_list th {

@@ -12,7 +12,7 @@
     <body>
         <div id="wrapper">
             <div id="header">
-                <h1>従業員管理システム</h1>
+                <h1><a>従業員管理システム</a></h1>
             </div>
             <div id="content">
                 ${param.content}
