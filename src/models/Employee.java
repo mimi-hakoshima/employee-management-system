@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +25,7 @@ import javax.persistence.Table;
             name = "checkRegisteredCode",
             query = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :code"
             )
+
 })
 
 @Entity
@@ -37,20 +38,29 @@ public class Employee{
     @Column(name = "code", nullable = false, unique = true)
     private String code;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "name_kanzi", nullable = false)
+    private String name_kanzi;
 
-    @Column(name = "admin_flag", nullable = false)
-    private Integer admin_flag;
+    @Column(name = "name_kana", nullable = false)
+    private String name_kana;
 
-    @Column(name = "created_at", nullable = false)
-    private Timestamp created_at;
+    @Column(name = "admin_flg", nullable = false)
+    private Integer admin_flg;
 
-    @Column(name = "updated_at", nullable = false)
-    private Timestamp updated_at;
+    @Column(name = "join_at", nullable = false)
+    private Date join_at;
 
-    @Column(name = "delete_flag", nullable = false)
-    private Integer delete_flag;
+    @Column(name = "leave_at", nullable = false)
+    private Date leave_at;
+
+    @Column(name = "delete_flg", nullable = false)
+    private Integer delete_flg;
+
+    @Column(name = "birthday_at", nullable = false)
+    private Date birthday_at;
+
+    @Column(name = "belongs_num", nullable = false)
+    private String belongs_num;
 
     public Integer getId(){
         return id;
@@ -68,44 +78,68 @@ public class Employee{
         this.code = code;
     }
 
-    public String getName(){
-        return name;
+    public String getName_kanzi(){
+        return name_kanzi;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setName_kanzi(String name_kanzi){
+        this.name_kanzi = name_kanzi;
     }
 
-    public Integer getAdmin_flag(){
-        return admin_flag;
+    public String getName_kana(){
+        return name_kana;
     }
 
-    public void setAdmin_flag(Integer admin_flag){
-        this.admin_flag = admin_flag;
+    public void setName_kana(String name_kana){
+        this.name_kana = name_kana;
     }
 
-    public Timestamp getCreated_at(){
-        return created_at;
+    public Integer getAdmin_flg(){
+        return admin_flg;
     }
 
-    public void setCreated_at(Timestamp created_at){
-        this.created_at = created_at;
+    public void setAdmin_flg(Integer admin_flg){
+        this.admin_flg = admin_flg;
     }
 
-    public Timestamp getUpdated_at(){
-        return updated_at;
+    public Date getJoin_at(){
+        return join_at;
     }
 
-    public void setUpdated_at(Timestamp updated_at){
-        this.updated_at = updated_at;
+    public void setJoin_at(Date join_at){
+        this.join_at = join_at;
     }
 
-    public Integer getDelete_flag(){
-        return delete_flag;
+    public Date getLeave_at(){
+        return leave_at;
     }
 
-    public void setDelete_flag(Integer delete_flag){
-        this.delete_flag = delete_flag;
+    public void setLeave_at(Date leave_at){
+        this.leave_at = leave_at;
+    }
+
+    public Integer getDelete_flg(){
+        return delete_flg;
+    }
+
+    public void setDelete_flg(Integer delete_flg){
+        this.delete_flg = delete_flg;
+    }
+
+    public Date getBirthday_at(){
+        return birthday_at;
+    }
+
+    public void setBirthday_at(Date birthday_at){
+        this.birthday_at = birthday_at;
+    }
+
+    public String getBelongs_num(){
+        return belongs_num;
+    }
+
+    public void setBelongs_num(String belongs_num){
+        this.belongs_num = belongs_num;
     }
 
 

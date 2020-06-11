@@ -17,9 +17,19 @@ public class EmployeeValidator {
             errors.add(code_error);
         }
 
-        String name_error = _validateName(e.getName());
+        String name_error = _validateName(e.getName_kanzi());
         if(!name_error.equals("")){
             errors.add(name_error);
+        }
+
+        Stirng name_error = _validateName(e.getName_kana());
+        if(!name_error.equals("")){
+            errors.add(name_error);
+        }
+
+        String password_error = _validatePassword(e.getPassword(), password_check_flag);
+        if(!password_error.equals("")){
+            errors.add(password_error);
         }
 
 

@@ -14,11 +14,35 @@
 <br /><br />
 
 <label for="name">氏名</label><br />
-<input type="text" name="code" value="${empoloyee.name}" />
+<input type="text" name="code" value="${empoloyee.name_kanzi}" />
+<br /><br />
+
+<label for="name">ふりがな</label><br />
+<input type="text" name="code" value="${employee.name_kana}" />
 <br /><br />
 
 <label for="password">パスワード</label><br />
 <input type="password" name="password" />
+<br /><br />
+
+<label for="belongs_rum">所属</label><br />
+<select name="belongs_num">
+    <option value="0"<c:if test="${employee.belongs_num == 0}"> selected</c:if>></option>
+    <option value="1"<c:if test="${employee.belongs_num == 1}"> selected</c:if>></option>
+    <option value="2"<c:if test="${employee.belongs_num == 2}"> selected</c:if>></option>
+</select>
+<br /><br />
+
+<label for="birthday_at">生年月日</label><br />
+<input type="date" name="birthday_at" value="${employee.birthday_at}" />
+<br /><br />
+
+<label for="join_at">入社日</label><br />
+<input type="date" name="join_at" value="${employee.join_at}" />
+<br /><br />
+
+<label for="leave_at">退社日</label><br />
+<input type="date" name="leave_at" value="${employee.leave_at}" />
 <br /><br />
 
 <label for="admin_flag">権限</label><br />
