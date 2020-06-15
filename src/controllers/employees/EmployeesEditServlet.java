@@ -28,11 +28,16 @@ public class EmployeesEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        Employee e = em.find(Employee.class, Integer.parseInt(request.getParameter("id")));
+        Employee e = em.find(Employee.class, Long.parseLong(request.getParameter("id")));
+        //BelongsNum b = em.find(BelongsNum.class, e.getBelongs_num());
+        //Report r =em.find(Report.class, e.getCode());
 
         em.close();
 
         request.setAttribute("employee", e);
+        //request.setAttribute("belongsnum", b);
+        //request.setAttribute("report", r);
+
         request.setAttribute("_token", request.getSession().getId());
         request.getSession().setAttribute("employee_id", e.getId());
 

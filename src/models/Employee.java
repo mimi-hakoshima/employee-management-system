@@ -18,12 +18,20 @@ import javax.persistence.Table;
             query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"
             ),
     @NamedQuery(
-            name = "getEmployeeCount",
+            name = "getEmployeesCount",
             query = "SELECT COUNT(e) FROM Employee AS e"
             ),
     @NamedQuery(
             name = "checkRegisteredCode",
             query = "SELECT COUNT(e) FROM Employee AS e WHERE e.code = :code"
+            ),
+    @NamedQuery(
+            name = "loginuser",
+            query = "SELECT e FROM Employee AS e WHERE e.code = :code AND e.delete_flg = 0"
+            ),
+    @NamedQuery(
+            name = "searchEmployees",
+            query = "SELECT e FROM Employee AS e WHERE e.code = :code OR e.name_kanzi = :name OR e.name_kana = :name OR e.belongs_num = :belongs "
             )
 
 })
@@ -33,7 +41,7 @@ public class Employee{
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
 
     @Column(name = "code", nullable = false, unique = true)
     private String code;
@@ -50,7 +58,7 @@ public class Employee{
     @Column(name = "join_at", nullable = false)
     private Date join_at;
 
-    @Column(name = "leave_at", nullable = false)
+    @Column(name = "leave_at")
     private Date leave_at;
 
     @Column(name = "delete_flg", nullable = false)
@@ -62,11 +70,11 @@ public class Employee{
     @Column(name = "belongs_num", nullable = false)
     private String belongs_num;
 
-    public Integer getId(){
+    public long getId(){
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(long id){
         this.id = id;
     }
 

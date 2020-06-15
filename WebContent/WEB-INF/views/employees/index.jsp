@@ -15,15 +15,27 @@
                 <tr>
                     <th>社員番号</th>
                     <th>氏名</th>
+                    <th>所属</th>
                     <th>操作</th>
                 </tr>
                 <c:forEach var="employee" items="${employees}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><c:out value="${employee.code}" /></td>
-                        <td><c:out value="${employee.name}" /></td>
+                        <td><c:out value="${employee.name_kanzi}" /></td>
+                        <td>
+                            <c:if test="${employee.belongs_num == 0}">
+                                大阪第１
+                            </c:if>
+                            <c:if test="${employee.belongs_num == 1}">
+                                大阪第２
+                            </c:if>
+                            <c:if test="${employee.belongs_num == 2}">
+                                大阪第３
+                            </c:if>
+                        </td>
                         <td>
                             <c:choose>
-                                <c:when test="${employee.delete_flag == 1}">
+                                <c:when test="${employee.delete_flg == 1}">
                                     （削除済み）
                                 </c:when>
                                 <c:otherwise>

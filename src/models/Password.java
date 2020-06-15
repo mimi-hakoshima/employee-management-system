@@ -2,8 +2,6 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -13,16 +11,17 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
             name = "getAllPassword",
-            query = "SELECT p FROM Password AS p ORDER BY p.id DESC"
+            query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"
+            ),
+    @NamedQuery(
+            name = "checkPassword",
+            query = "SELECT p FROM Password AS p WHERE p.password_id = :code and p.password = :pass"
             )
 })
 
 @Entity
 public class Password {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "password_id", nullable = false)
     private String password_id;

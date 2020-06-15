@@ -14,24 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import models.Employee;
 import utils.DBUtil;
 
-/**
- * Servlet implementation class EmployeeIndexServlet
- */
 @WebServlet("/employees/index")
-public class EmployeeIndexServlet extends HttpServlet {
+public class EmployeesIndexServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EmployeeIndexServlet() {
+    public EmployeesIndexServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
@@ -39,10 +30,11 @@ public class EmployeeIndexServlet extends HttpServlet {
         try{
             page = Integer.parseInt(request.getParameter("page"));
 
-        } catch(NumberFormatException e) {}
+        } catch(NumberFormatException e){}
+
         List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class).setFirstResult(15 * (page - 1)).setMaxResults(15).getResultList();
 
-        long employees_count = (long)em.createNamedQuery("getEmployeeCount", Long.class).getSingleResult();
+        long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class).getSingleResult();
 
         em.close();
 
@@ -52,10 +44,12 @@ public class EmployeeIndexServlet extends HttpServlet {
         if(request.getSession().getAttribute("flush") != null){
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
+
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
         rd.forward(request, response);
+
     }
 
 }

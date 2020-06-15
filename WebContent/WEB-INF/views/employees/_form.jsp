@@ -4,32 +4,41 @@
 <c:if test="${errors != null}">
     <div id="flush_error">
         入力内容にエラーがあります。<br />
-        <c:forEach var="error" items="${eroors}">
+        <c:forEach var="error" items="${errors}">
             <c:out value="${error}" /><br />
         </c:forEach>
     </div>
 </c:if>
 <label for="code">社員番号</label><br />
-<input type="text" name="code" value="${empolyee.code}" />
+<c:choose>
+    <c:when test="${employee.id != null}">
+        <input type="text" name="code" value="${empolyee.code}" disabled />
+        <input type="hidden" name="code" value="${empolyee.code}" />
+    </c:when>
+    <c:otherwise>
+        <input type="text" name="code" value="${empolyee.code}" />
+    </c:otherwise>
+</c:choose>
+
 <br /><br />
 
-<label for="name">氏名</label><br />
-<input type="text" name="code" value="${empoloyee.name_kanzi}" />
+<label for="name_kanzi">氏名</label><br />
+<input type="text" name="name_kanzi" value="${empoloyee.name_kanzi}" />
 <br /><br />
 
-<label for="name">ふりがな</label><br />
-<input type="text" name="code" value="${employee.name_kana}" />
+<label for="name_kana">ふりがな</label><br />
+<input type="text" name="name_kana" value="${employee.name_kana}" />
 <br /><br />
 
 <label for="password">パスワード</label><br />
-<input type="password" name="password" />
+<input type="password" name="password" value="${password.password}"/>
 <br /><br />
 
 <label for="belongs_rum">所属</label><br />
 <select name="belongs_num">
-    <option value="0"<c:if test="${employee.belongs_num == 0}"> selected</c:if>></option>
-    <option value="1"<c:if test="${employee.belongs_num == 1}"> selected</c:if>></option>
-    <option value="2"<c:if test="${employee.belongs_num == 2}"> selected</c:if>></option>
+    <option value="0"<c:if test="${employee.belongs_num == 0}"> selected</c:if>>大阪第１</option>
+    <option value="1"<c:if test="${employee.belongs_num == 1}"> selected</c:if>>大阪第２</option>
+    <option value="2"<c:if test="${employee.belongs_num == 2}"> selected</c:if>>大阪第３</option>
 </select>
 <br /><br />
 
@@ -45,14 +54,14 @@
 <input type="date" name="leave_at" value="${employee.leave_at}" />
 <br /><br />
 
-<label for="admin_flag">権限</label><br />
-<select name="admin_flag">
-    <option value="0"<c:if test="${employee.admin_flag == 0}"> selected</c:if>>一般</option>
-    <option value="1"<c:if test="${employee.admin_flag == 1}"> selected</c:if>>管理者</option>
+<label for="admin_flg">権限</label><br />
+<select name="admin_flg">
+    <option value="0"<c:if test="${employee.admin_flg == 0}"> selected</c:if>>一般</option>
+    <option value="1"<c:if test="${employee.admin_flg == 1}"> selected</c:if>>管理者</option>
 </select>
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
-<button type="submit">投稿</button>
+
 
 
