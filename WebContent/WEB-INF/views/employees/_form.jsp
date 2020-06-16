@@ -12,18 +12,18 @@
 <label for="code">社員番号</label><br />
 <c:choose>
     <c:when test="${employee.id != null}">
-        <input type="text" name="code" value="${empolyee.code}" disabled />
-        <input type="hidden" name="code" value="${empolyee.code}" />
+        <input type="text" name="code" value="${employee.code}" disabled />
+        <input type="hidden" name="code" value="${employee.code}" />
     </c:when>
     <c:otherwise>
-        <input type="text" name="code" value="${empolyee.code}" />
+        <input type="text" name="code" value="${employee.code}" />
     </c:otherwise>
 </c:choose>
 
 <br /><br />
 
 <label for="name_kanzi">氏名</label><br />
-<input type="text" name="name_kanzi" value="${empoloyee.name_kanzi}" />
+<input type="text" name="name_kanzi" value="${employee.name_kanzi}" />
 <br /><br />
 
 <label for="name_kana">ふりがな</label><br />

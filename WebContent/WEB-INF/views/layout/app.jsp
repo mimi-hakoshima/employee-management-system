@@ -16,8 +16,8 @@
                     <h1><a href="<c:url value='/' />">従業員管理システム</a></h1>&nbsp;&nbsp;&nbsp;
                 </div>
                 <c:if test="${sessionScope.login_employee != null}">
-                    <div id="employee_name_kanzi">
-                        <c:out value="${sessionScope.login_employee.name_kanzi}" />&nbsp;
+                    <div id="employee_name">
+                        <c:out value="${sessionScope.login_employee.name_kanzi}" />&nbsp;さん&nbsp;&nbsp;&nbsp;
                         <a href="<c:url value='/logout' />">ログアウト</a>
                     </div>
                 </c:if>
