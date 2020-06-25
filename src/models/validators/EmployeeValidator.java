@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import models.BelongsNum;
 import models.Employee;
 import models.Password;
 import utils.DBUtil;
@@ -40,9 +41,9 @@ public class EmployeeValidator {
             errors.add(birthday_at_error);
         }
 
-        String belongs_num_error =_validateBelongs_num(e.getBelongs_num());
-        if(!belongs_num_error.equals("")){
-            errors.add(belongs_num_error);
+        String belongs_error =_validateBelongs(e.getBelongs());
+        if(!belongs_error.equals("")){
+            errors.add(belongs_error);
         }
 
         String password_error = _validatePassword(p.getPassword(), password_check_flag);
@@ -113,8 +114,8 @@ public class EmployeeValidator {
     }
 
  // 所属部署コードの必須入力チェック
-    private static String _validateBelongs_num(String belongs_num){
-        if(belongs_num == null || belongs_num.equals("")){
+    private static String _validateBelongs(BelongsNum belongs){
+        if(belongs == null || belongs.equals("")){
             return "所属部署コードを入力してください。";
         }
 

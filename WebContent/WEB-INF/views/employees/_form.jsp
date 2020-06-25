@@ -34,11 +34,11 @@
 <input type="password" name="password" value="${password.password}"/>
 <br /><br />
 
-<label for="belongs_rum">所属</label><br />
+<label for="belongs_num">所属</label><br />
 <select name="belongs_num">
-    <option value="0"<c:if test="${employee.belongs_num == 0}"> selected</c:if>>大阪第１</option>
-    <option value="1"<c:if test="${employee.belongs_num == 1}"> selected</c:if>>大阪第２</option>
-    <option value="2"<c:if test="${employee.belongs_num == 2}"> selected</c:if>>大阪第３</option>
+    <c:forEach var="belongsnum" items="${ belongsnum }" varStatus="status">
+        <option value="${ belongsnum.belongs_id }"<c:if test="${ employees.belongs.belongs_id == belongsnum.belongs_id}"> selected</c:if>><c:out value="${ belongsnum.belongs_name }" /></option>
+    </c:forEach>
 </select>
 <br /><br />
 

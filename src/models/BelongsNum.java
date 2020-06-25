@@ -1,17 +1,20 @@
 package models;
 
+//import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Table(name = "belongsNum")
 @NamedQueries({
     @NamedQuery(
             name = "getAllBelongsNum",
-            query = "SELECT e FROM Employee AS e ORDER BY e.id DESC"
+            query = "SELECT b FROM BelongsNum AS b ORDER BY b.belongs_id ASC"
             )
 })
 
@@ -24,6 +27,9 @@ public class BelongsNum {
 
     @Column(name = "belongs_name", nullable = false)
     private String belongs_name;
+
+//    @OneToMany(mappedBy = "belongsNum", fetch = FetchType.LAZY)
+//    private List<Employee> employees;
 
 
     public String getBelongs_id(){

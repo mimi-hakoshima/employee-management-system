@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.BelongsNum;
 import models.Employee;
 import models.Report;
 import utils.DBUtil;
@@ -30,7 +29,7 @@ public class EmployeesShowServlet extends HttpServlet {
         EntityManager em = DBUtil.createEntityManager();
 
         Employee e = em.find(Employee.class, Long.parseLong(request.getParameter("id")));
-        BelongsNum b = em.find(BelongsNum.class, e.getBelongs_num());
+//        BelongsNum b = em.find(BelongsNum.class, e.getBelongs_num());
         Report r = em.find(Report.class, e.getCode());
 
 
@@ -38,7 +37,7 @@ public class EmployeesShowServlet extends HttpServlet {
         em.close();
 
         request.setAttribute("employee", e);
-        request.setAttribute("belongsNum", b);
+//        request.setAttribute("belongsNum", b);
         request.setAttribute("report", r);
 
 

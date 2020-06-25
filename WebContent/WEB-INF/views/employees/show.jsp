@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                             <th>所属</th>
-                            <td><c:out value="${belongsNum.belongs_name}" /></td>
+                            <td><c:out value="${employee.belongs.belongs_name}" /></td>
                         </tr>
                         <tr>
                             <th>生年月日</th>

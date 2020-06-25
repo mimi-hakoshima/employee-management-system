@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import models.BelongsNum;
 import models.Employee;
 import models.Password;
 import models.Report;
@@ -74,7 +75,7 @@ public class EmployeesUpdateServlet extends HttpServlet {
             e.setName_kanzi(request.getParameter("name_kanzi"));
             e.setName_kana(request.getParameter("name_kana"));
 
-            e.setBelongs_num(request.getParameter("belongs_num"));
+            e.setBelongs((BelongsNum)em.find(BelongsNum.class, request.getParameter("belongs_num")));
 
             e.setAdmin_flg(Integer.parseInt(request.getParameter("admin_flg")));
 
@@ -107,8 +108,10 @@ public class EmployeesUpdateServlet extends HttpServlet {
 
             List<String> errors = EmployeeValidator.validate(e, p, code_duplicate_check, password_check_flag);
             if(errors.size() > 0){
+                List<BelongsNum> belongsnum = em.createNamedQuery("getAllBelongsNum", BelongsNum.class).getResultList();
                 em.close();
 
+                request.setAttribute("belongsnum", belongsnum);
                 request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("employee", e);
                 request.setAttribute("password", p);

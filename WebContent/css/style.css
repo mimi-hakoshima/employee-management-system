@@ -63,13 +63,13 @@ table{
 
 th{
     width: 26%;
-    paddong: 10px 2%;
+    padding: 10px 2%;
 
 }
 
 td{
     width: 66%;
-    padding 10px 2%;
+    padding: 10px 2%;
 
 }
 
@@ -148,8 +148,6 @@ select {
 
 h1 a {
     color: #eeeeee;
-    margin-top: 10px;
-    margin-left: 10px;
 }
 
 table#report_list th {

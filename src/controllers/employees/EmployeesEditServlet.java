@@ -1,6 +1,7 @@
 package controllers.employees;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.BelongsNum;
 import models.Employee;
 import utils.DBUtil;
 
@@ -32,8 +34,11 @@ public class EmployeesEditServlet extends HttpServlet {
         //BelongsNum b = em.find(BelongsNum.class, e.getBelongs_num());
         //Report r =em.find(Report.class, e.getCode());
 
+        List<BelongsNum> belongsnum = em.createNamedQuery("getAllBelongsNum", BelongsNum.class).getResultList();
+
         em.close();
 
+        request.setAttribute("belongsnum", belongsnum);
         request.setAttribute("employee", e);
         //request.setAttribute("belongsnum", b);
         //request.setAttribute("report", r);

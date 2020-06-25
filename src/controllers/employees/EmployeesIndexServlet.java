@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.BelongsNum;
 import models.Employee;
 import utils.DBUtil;
 
@@ -24,32 +25,97 @@ public class EmployeesIndexServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        EntityManager em = DBUtil.createEntityManager();
+//
+//        int page = 1;
+//        try{
+//            page = Integer.parseInt(request.getParameter("page"));
+//
+//        } catch(NumberFormatException e){}
+//
+//
+//        long employees_count = 0; //(long)em.createNamedQuery("getEmployeesCount", Long.class).getSingleResult();
+//
+//        List<BelongsNum> belongsnum = em.createNamedQuery("getAllBelongsNum", BelongsNum.class).getResultList();
+//
+//        em.close();
+//
+//        request.setAttribute("belongsnum", belongsnum);
+//        request.setAttribute("employees_count", employees_count);
+//        request.setAttribute("page", page);
+//        if(request.getSession().getAttribute("flush") != null){
+//            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+//            request.getSession().removeAttribute("flush");
+//
+//        }
+//
+//        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
+//        rd.forward(request, response);
+//
+//    }
+//
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        int page = 1;
-        try{
-            page = Integer.parseInt(request.getParameter("page"));
+        String search_code = new String();
+        String search_name = new String();
+        String search_belongs = new String();
 
+        try {
+            search_code = request.getParameter("search_code");
+            search_name = request.getParameter("search_name") + "%";
+            search_belongs = request.getParameter("search_belongs");
+
+            if(search_code.equals("")){
+                search_code = null;
+            }
+            if(search_name.equals("%")){
+                search_name = null;
+            }
+            if(search_belongs.equals("")){
+                search_belongs = null;
+            }
+        } catch(NullPointerException e){}
+
+        int page = 1;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
         } catch(NumberFormatException e){}
 
-        List<Employee> employees = em.createNamedQuery("getAllEmployees", Employee.class).setFirstResult(15 * (page - 1)).setMaxResults(15).getResultList();
+        List<Employee> employees = em.createNamedQuery("search", Employee.class)
+                                    .setParameter("code", search_code)
+                                    .setParameter("name", search_name)
+                                    .setParameter("belongs_num", search_belongs)
+                                    .setFirstResult(15 * (page - 1))
+                                    .setMaxResults(15)
+                                    .getResultList();
 
-        long employees_count = (long)em.createNamedQuery("getEmployeesCount", Long.class).getSingleResult();
+        long employees_count = (long)em.createNamedQuery("searchCount", Long.class)
+                                    .setParameter("code", search_code)
+                                    .setParameter("name", search_name)
+                                    .setParameter("belongs_num", search_belongs)
+                                    .getSingleResult();
+
+        List<BelongsNum> belongsnum = em.createNamedQuery("getAllBelongsNum", BelongsNum.class).getResultList();
+
 
         em.close();
 
+
+        request.setAttribute("belongsnum", belongsnum);
+        request.setAttribute("search_code", search_code);
+        request.setAttribute("search_name", request.getParameter("name"));
+        request.setAttribute("search_belongs", search_belongs);
         request.setAttribute("employees", employees);
         request.setAttribute("employees_count", employees_count);
         request.setAttribute("page", page);
         if(request.getSession().getAttribute("flush") != null){
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
-
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/employees/index.jsp");
         rd.forward(request, response);
 
     }
-
 }

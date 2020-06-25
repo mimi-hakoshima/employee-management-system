@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import models.BelongsNum;
 import models.Employee;
 import models.Password;
 import models.Report;
@@ -62,7 +63,7 @@ public class EmployeesCreateServlet extends HttpServlet {
 
             p.setPassword(EncryptUtil.getPasswordEncrypt(request.getParameter("password"), (String)this.getServletContext().getAttribute("salt")));
 
-            e.setBelongs_num(request.getParameter("belongs_num"));
+            e.setBelongs((BelongsNum)em.find(BelongsNum.class, request.getParameter("belongs_num")));
 
             Date birthday_at = new Date(System.currentTimeMillis());
             String bd_str = request.getParameter("birthday_at");
@@ -103,8 +104,10 @@ public class EmployeesCreateServlet extends HttpServlet {
 
             List<String> errors = EmployeeValidator.validate(e, p, true, true);
             if(errors.size() > 0){
+                List<BelongsNum> belongsnum = em.createNamedQuery("getAllBelongsNum", BelongsNum.class).getResultList();
                 em.close();
 
+                request.setAttribute("belongsnum", belongsnum);
                 request.setAttribute(_token, request.getSession().getId());
                 request.setAttribute("employee", e);
                 request.setAttribute("report", r);

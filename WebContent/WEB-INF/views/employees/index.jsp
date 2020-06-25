@@ -10,6 +10,28 @@
         </c:if>
 
         <h2>従業員一覧</h2>
+
+        <%-- 検索フォーム --%>
+        <form method="get" action="<c:url value='/employees/index' />">
+        <label>社員番号：</label>
+        <input type="text" name="search_code" value="${search_code}" />&nbsp;
+
+        <label>氏名：</label>
+        <input type="text" name="search_name" value="${search_name}" />&nbsp;
+
+        <label>所属：</label>
+        <select name="search_belongs">
+            <option value="" <c:if test="${ search_belongs == null }">selected</c:if>>未選択</option>
+            <c:forEach var="belongsnum" items="${ belongsnum }" varStatus="status">
+                <option value="${ belongsnum.belongs_id }"<c:if test="${ search_belongs == belongsnum.belongs_id}"> selected</c:if>><c:out value="${ belongsnum.belongs_name }" /></option>
+            </c:forEach>
+
+        </select>&nbsp;&nbsp;&nbsp;
+
+        <button type="submit">検索</button>
+        <br /><br />
+        </form>
+
         <table id="employee_list">
             <tbody>
                 <tr>
@@ -23,15 +45,7 @@
                         <td><c:out value="${employee.code}" /></td>
                         <td><c:out value="${employee.name_kanzi}" /></td>
                         <td>
-                            <c:if test="${employee.belongs_num == 0}">
-                                大阪第１
-                            </c:if>
-                            <c:if test="${employee.belongs_num == 1}">
-                                大阪第２
-                            </c:if>
-                            <c:if test="${employee.belongs_num == 2}">
-                                大阪第３
-                            </c:if>
+                                <c:out value="${ employee.belongs.belongs_name }" />
                         </td>
                         <td>
                             <c:choose>
@@ -56,7 +70,7 @@
                         <c:out value="${i}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='/employees/index?page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <a href="<c:url value='/employees/index?page=${i}&search_code=${ search_code }&search_name=${ search_name }&search_belongs=${ search_belongs }' />"><c:out value="${i}" /></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>

@@ -9,12 +9,11 @@
             </div>
         </c:if>
         <h2>従業員管理システムへようこそ</h2>
-        <c:if test="${sessionScope.login_employee != null}">
-            <c:if test="${sessionScope.login_employee.admin_flg == 1}">
+        <%-- <c:if test="${sessionScope.login_employee != null}"> --%>
+           <c:if test="${login_employee.admin_flg == 1}">
                 <a href="<c:url value='/employees/index' />">従業員一覧</a><br /><br />
-            </c:if>
                 <a href="<c:url value='/employees/new' />">従業員登録</a>
-
-        </c:if>
+           </c:if>
+        <%-- </c:if> --%>
     </c:param>
 </c:import>
